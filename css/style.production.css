@@ -1,0 +1,599 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.3.6,
+* Autoprefixer: v10.3.1
+* Browsers: last 4 version
+*/
+
+/*
+Explanation:
+To do:  
+Preprocessor, Variables and Postprocessor process (exercise 1.8):
+1. In the "styles.css" file, replace any repetitive values (e.g. color, font-weight, font-size, etc.) as Variables (in ":root" section) - these native css variables replace the job of Preprocessors like SASS!
+2. (After finishing website) Copy the content of the "styles.css" CSS file and paste it into the PostCSS playground (https://madlittlemods.github.io/postcss-css-variables/playground/) for converting the Variables to 'normal css'
+3. Copy the output of the PostCSS playground and paste it into the 'autoprefixer' (a Postprocessor): https://autoprefixer.github.io/
+4. In this "style.production.css" file, paste the output of the autoprefixer (replace the existing output here).
+5. (If you need to make more changes) Any future changes to your CSS should be made through your original “styles.css” files, then this process should be repeated again.
+6. (If you haven't done so) Update the links to your CSS file in all your HTML files (they should now point to your “style.production.css” file)
+*/
+
+
+/*
+Explanation:
+Classes naming convention:
+"Block Element Modifier" (BEM)
+    Format = Block__Element--Modifier
+        Variations = Block__Element OR Block--Modifier
+    E.g.: navigation-list__item--active
+    E.g.: header__header-title--highlighted
+    E.g.(analogy): person__hand--left
+    E.g.(analogy): person--female__hand
+
+More info.: http://getbem.com/introduction/
+*/
+
+/*
+Explanation:
+How CSS is read:
+1. The CSS is applied top to down (i.e. if there are three rules for the same HTML element, the last rule is applied, not the first)
+2. But, beware of "Specificity": if the three rules have different specificity, the rule that will be applied is the one with the most specificity, regardless of the 'cascading' order. (Example: If the 1st rule in the CSS document has an 'ID selector', and the 2nd rule has a 'Class selector', even though the 2nd rule is last in order, the 1st rule is applied because it has a different specificity, namely a higher specificity)
+    Levels of Specificity:
+        4. Element selectors (lowest) - e.g. "button"
+        3. Class selectors (mid) - e.g. ".button"
+        2. ID selectors (highest) - e.g. "#button"
+        1. Write: "!important" (though avoid this as it interferes with cascading behaviour)
+*/
+
+/*
+Explanation:
+"Margin collapsing":
+In CSS, vertical margin values collapse. This means that if you have two elements on top of each other and 
+both use margin for spacing, the values don’t get added together; instead, the higher value of both will be used.
+
+There are Exceptions though!
+*/
+
+/*To do later: With JS, make the header fixed at the top when scrolling - so when you scroll, it stays at the top of the viewport*/
+
+
+* {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    /*Explanation: This will include the padding + borders within the "Total width", instead of being additional. (Why: with this, you don't need to constantly calculate total widths)
+    Example without 'border-box': Width = 100px, Padding = 20px, Border = 4px --> Total width = 124px
+    Example with 'border-box': Width = 100px, Padding = 20px, Border = 4px --> Total width = 100px (20+4 is now included in the total width)
+    Note: the "*" means it's selecting all elements in the HTML pages.*/
+}
+
+:root {
+/*Explanation: This section is used to define css variables, so that they can be changed here and applied automatically to multiple parts where the same variable is used. The "root" here, a pseudo-class, makes sure the variables below are available for all elements within the <html> tag*/
+    /*Explanation: Chose website background colour to be 'Ivory', and not 'Dark gray' as in the exercise*/
+    /*Explanation: The "rgba" above is replacing a HEX or RGB value for color. But, unlike RGB, it has a fourth value RGB(A), which sets how transparent (value = 0) or opaque it is (value = 1)*/
+}
+
+body {
+    background-color: #fdfff5;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    /*Explanation: Unless otherwise coded in the css, most (or all) tags within the body will inherit this font-size, apart from headings*/
+    line-height: 1.5;
+}
+
+a {
+    color: #3F00FF;
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+}
+
+th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+}
+
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+}
+
+/*Question: To do later: In the table of the "About" page, when I shrink the page to about 478px, there is no longer any spacing between the table and the sides of the webpage/viewport. How to add spacing between the table and the webpage's limits (I've tried to add padding and margins to the table's class already)*/
+
+a:visited {
+    /*Explanation: "visited" is for a link the user has visited*/
+    color: #250094;
+}
+
+a:hover, a:focus {
+    /*Explanation: "hover" is for a link when the user mouses over it*/
+    /*Explanation: The "focus" is for accessibility purposes, for users who navigate web pages with a keyboard*/
+    text-decoration: none;
+    /*Explanation: This removes the underline when a user mouses over a link*/
+}
+
+a:active {
+    /*Explanation: "active" is for a link the exact moment (0.2 seconds) it is clicked*/
+    color: #3aa679;
+}
+
+button {
+    border: none;
+    /*Explanation: This overwrites browser defaults for the button's border, resetting the border for later modification below*/
+    display: inline-block;
+    font-family: inherit;
+    /*Explanation: "Inherit" will make the button inherit the font family from the parent element, i.e. the body. This can be applied to all CSS rules.*/
+    background-color: rgba(114, 194, 181, 0.9);
+    /*Explanation: I haven't added a "color" property because the text is the default colour, black*/
+    font-weight: 700;
+    /*Explanation: Just made the button a bit more bold than the text around: 700, as opposed to the initial default which is/was 400*/
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 7px;
+    border-bottom: 2px solid #57948a;
+    -webkit-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    /*Explanation: This is part of "CSS Transitions" - which define an animation between two different states - e.g. from default button state to hover button state!*/
+    /*Explanation: This "transition" property is made up of 4 properties: here, we've included only the 2 mandatory properties: "transition-property" and "transition-duration"*/
+    /*Explanation: The "transition-property" (in this e.g. = "opacity") must go in the default state of an element (e.g. "button") - thus why it's here and not below in the "hover" state*/
+}
+
+.resume-button {
+    border: none;
+    /*Explanation: This overwrites browser defaults for the button's border, resetting the border for later modification below*/
+    display: inline-block;
+    font-family: inherit;
+    /*Explanation: "Inherit" will make the button inherit the font family from the parent element, i.e. the body. This can be applied to all CSS rules.*/
+    background-color: rgba(114, 194, 181, 0.9);
+    /*Explanation: I haven't added a "color" property because the text is the default colour, black*/
+    font-weight: 700;
+    /*Explanation: Just made the button a bit more bold than the text around: 700, as opposed to the initial default which is/was 400*/
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 7px;
+    border-bottom: 2px solid #57948a;
+    -webkit-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    /*Explanation: This is part of "CSS Transitions" - which define an animation between two different states - e.g. from default button state to hover button state!*/
+    /*Explanation: This "transition" property is made up of 4 properties: here, we've included only the 2 mandatory properties: "transition-property" and "transition-duration"*/
+    /*Explanation: The "transition-property" (in this e.g. = "opacity") must go in the default state of an element (e.g. "button") - thus why it's here and not below in the "hover" state*/
+}
+
+button:hover, button:focus, .resume-button:hover, .resume-button:focus {
+    cursor: pointer;
+    /*Explanation: This makes the mouse appear as a hand when you hover over the button*/
+    opacity: 0.7;
+}
+
+a.resume-button {
+/*Explanation: This "a" before the class helps me target this element, which is a link turned into a button!*/
+    color: black;
+}
+
+.center-button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding-bottom: 70px;
+}
+
+.center-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center-table__caption {
+    text-align: center;
+}
+
+.main-heading {
+    font-size: 27px;
+    text-align: center;
+}
+
+.contact-heading {
+    margin-bottom: 60px;
+}
+
+.profile__portrait {
+    float: left;
+    width: 250px;
+    /*Explanation: I transformed my picture online to have an exact pixel width of 250px, so that I could then code it here as width:250px - thus not making the image blurry!*/
+    height: auto;
+    /*Explanation: When you don't know the exact pixel height of an image, you can use "height: auto" to make sure it matches that exact height, matching the correct ratio*/
+    margin-right: 40px;
+    border-radius: 50%;
+}
+
+.page-footer {
+    clear: both;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.social-media__item {
+    margin: 10px;
+    /*Explanation: This is to increase the space between the social media image links*/
+}
+
+/*Explanation: Start of transition for social media logos in footer*/
+.social-media__item {
+    -webkit-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+}
+
+.social-media__item:hover, .social-media__item:focus {
+    opacity: 0.6;
+}
+/*Explanation: End of transition for social media logos in footer*/
+
+
+.profile {
+    max-width: 700px;
+    margin: 90px auto 140px auto;
+    /*Explanation: Here, I had to give the bottom-margin a greater figure because of the image float */
+}
+
+/*Explanation: I added margins to the sides of the profile section because below 800px, they start to get glued to sides of web page/viewport*/
+@media all and (max-width: 800px) {
+        .profile {
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+    }
+
+@media all and (max-width: 430px) {
+        .profile__portrait {
+            margin-bottom: 40px;
+        }
+    }
+
+/*Question: To do later: In the "Home" page, below 600px width, how to move text content below profile image (display:block wasn't working)*/
+/*Question: To do later: In the "Home" page Below 430px width, how to center profile image?*/
+
+/*Question: To do later: In the "About" page, in the header/nav. part, at 380px width, the border-bottom starts to shrink, and that affects the whole layout of that page!*/
+
+.page-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 40px;
+}
+
+.page-header__item {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 200px;
+            flex: 0 1 200px;
+    /*Explanation: This "flex" property includes 3 values for 3 other properties: "flex-grow", "flex-shrink" and "flex-basis", in that order*/
+}
+
+.page-header__item:last-child {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    text-align: right;
+}
+
+.navigation-list {
+    list-style-type: none;
+}
+
+.navigation-list li {
+    display: inline-block;
+    margin-right: 20px;
+    /*Explanation: I added "margin-right" instead of "margin-left" to add some spacing between 'Contact' and the right side of the page*/
+}
+
+.navigation-list__item--active {
+    text-decoration: none;
+}
+
+/*To do later: With javascript, below a certain pixel size (e.g. 640px below), turn the header into a dropdown menu, for tablets and phones especially. Or, align the logo & header center/left instead.*/
+/*Explanation: At 640px, I make the header display:block, because this is when the header items start to show on 2 rows instead of 1*/
+@media all and (max-width: 650px) {
+    /*Explanation: This "@media" is called a media query, to create responsive design - allowing you to specify at which sizes (above = up to 640px) a certain rule gets applied*/ 
+        .page-header {
+            display: block;
+        }
+    }
+
+/*Explanation: At 380px, I cut down on the margins of the header items because at that size, the header items start to show on 2 rows instead of 1. This margin cut-down allows me to display header items in 1 row at 320px, the current lowest phone width*/
+@media all and (max-width: 380px) {
+    .page-header__item {
+        margin-left: -30px;
+        margin-right: -30px;
+    }
+}
+
+.interests {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.interests__item {
+    margin-bottom: -13px;
+}
+
+.personal-background {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    padding: 10px 20px 60px;
+}
+
+.personal-background__list {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 500px;
+            flex: 0 1 500px;
+}
+
+.personal-background__list-item {
+    margin-bottom: 20px;
+}
+
+.personal-background__list-item-dates {
+    display: block;
+}
+
+/*Explanation: Start grid fallback*/
+/*Explanation: this "grid fallback" section is for older browsers, which don't support the "grid" layout. They must come before the actual grid css code below!*/
+.work-projects-grid__item {
+    display: inline-block;
+    width: 33%;
+}
+/*Explanation: End grid fallback*/
+
+@supports (display: grid) {
+/*Explanation: This "@supports" is called a 'feature query'. It's used here because of the "grid fallback" above! In general, it serves to let you specify declarations that depend on a browser's support for one or more specific CSS features.*/
+    .work-projects-grid {
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-columns: 1fr 20px 1fr 20px 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        /*Explanation: Here, I could have also defined values for a "grid-template-rows" property, but it's good practice just to specify for one property, the "grid-template-columns" property. Since the "rows" property isn't defined, it defaults to 'auto', and the browser makes sure all content fits...*/
+        /*Explanation: The "fr" is a 'flex unit' which allocates the available space among the grid items*. If you have 3 columns with 1fr, space is allocated equally between all 3, but if 1st column is 2fr and the others are 1fr, then 1st column is allocated more space!*/
+        grid-gap: 20px;
+        /*Explanation: This "grid-gap" is specific for grids, and it adds a type of margins between grid items*/
+        margin: 30px 30px 45px;
+    }
+
+    .work-projects-grid__item {
+        background-color: lightgray;
+        padding: 20px;
+        /*Explanation: The above added a 20px padding to all sides, for each grid item!*/
+        width: auto;
+        /*Explanation: This was added here after the "grid fallback" was written. It ensures the layout doesn't break...?*/
+        min-height: auto;
+    }
+
+    .work-projects-grid__item:last-child {
+        /*Explanation: I have "last-child" here, because this is the last child of the grid element!*/
+        -ms-grid-column: 1;
+            grid-column-start: 1;
+        -ms-grid-column-span: 3;
+        grid-column-end: 4;
+        /*Explanation: these 2 properties above help me position the element to start on the 1st column and end on the beginning of the 4th column*/
+        text-align: center;
+    }
+}
+
+@media all and (max-width: 500px) {
+/*Explanation: This "@media" is called a media query, to create responsive design - allowing you to specify at which sizes (above = up to 500px) a certain rule gets applied*/ 
+    .work-projects-grid {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media all and (min-width: 500px) and (max-width: 750px) {
+    .work-projects-grid {
+        -ms-grid-columns: 1fr 20px 1fr;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media all and (max-width: 750px) {
+    .work-projects-grid {
+        grid-gap: 10px;
+    }
+    .work-projects-grid__item:last-child {
+        grid-column: auto / auto;
+        grid-row: auto / auto;
+    }
+    h1 {
+        font-size: 22px;
+    }
+}
+
+/*Explanation: Animations (for rocket "about.html") start:*/
+@-webkit-keyframes sky-animation-color-change {
+    from {
+        fill: #ADE4F3;
+    }
+    to {
+        fill: #fd5e53;
+    }
+}
+@keyframes sky-animation-color-change {
+    from {
+        fill: #ADE4F3;
+    }
+    to {
+        fill: #fd5e53;
+    }
+}
+
+.sky {
+    /*Explanation: This is the "animation" property, with all its properties, abbreviated into 1 line of code*/
+    -webkit-animation: sky-animation-color-change 4s linear infinite alternate;
+            animation: sky-animation-color-change 4s linear infinite alternate;
+}
+
+@-webkit-keyframes cloud-right-animation-move {
+    from {
+        -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
+    }
+    to {
+        -webkit-transform: translate(200px, 0);
+                transform: translate(200px, 0);
+    }
+}
+
+@keyframes cloud-right-animation-move {
+    from {
+        -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
+    }
+    to {
+        -webkit-transform: translate(200px, 0);
+                transform: translate(200px, 0);
+    }
+}
+
+.cloud-right {
+    -webkit-animation: cloud-right-animation-move 4s linear infinite alternate;
+            animation: cloud-right-animation-move 4s linear infinite alternate;
+}
+
+@-webkit-keyframes cloud-left-animation-move {
+    from {
+        -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
+    }
+    to {
+        -webkit-transform: translate(-400px, 0);
+                transform: translate(-400px, 0);
+    }
+}
+
+@keyframes cloud-left-animation-move {
+    from {
+        -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
+    }
+    to {
+        -webkit-transform: translate(-400px, 0);
+                transform: translate(-400px, 0);
+    }
+}
+
+.cloud-left {
+    -webkit-animation: cloud-left-animation-move 4s linear infinite alternate;
+            animation: cloud-left-animation-move 4s linear infinite alternate;
+}
+/*Explanation: Animations (for rocket "about.html") end*/
+
+.center-animation {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: -25px;
+}
+
+.animation-credit {
+    font-size: 10px;
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+/*Explanation: Contact form styling: start*/
+
+    /*Explanation: Start grid fallback*/
+    /*Explanation: this "grid fallback" section is for older browsers, which don't support the "grid" layout. They must come before the actual grid css code below!*/
+.contact-form__item {
+    display: inline-block;
+    width: 40%;
+}
+    /*Explanation: End grid fallback*/
+
+@supports (display: grid) {
+/*Explanation: This "@supports" is called a 'feature query'. It's used here because of the "grid fallback" above! In general, it serves to let you specify declarations that depend on a browser's support for one or more specific CSS features.*/
+    label, input {
+        display: block;
+    }
+
+    label {
+        padding-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input {
+        width: 100%;
+        height: 40px;
+        font-size: 15px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 130px;
+    }
+
+    .contact-form {
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-columns: 20% 10px 20%;
+        grid-template-columns: 20% 20%;
+        grid-row-gap: 30px;
+        grid-column-gap: 10px;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+    }
+
+    .contact-form__item {
+        width: auto;
+        /*Explanation: This was added here after the "grid fallback" was written. It ensures the layout doesn't break...?*/
+    }
+
+    .contact-form__item:nth-last-child(-n+3) {
+        -ms-grid-column: 1;
+            grid-column-start: 1;
+        -ms-grid-column-span: 2;
+        grid-column-end: 3;
+    }
+
+    .contact-button {
+        text-align: center;
+        margin: 45px 0px 80px;
+    }
+
+    @media all and (max-width: 800px) {
+            .contact-form {
+                -ms-grid-columns: 43% 43%;
+                grid-template-columns: 43% 43%;
+            }
+        }
+}
+
+/*Explanation: Contact form styling: end*/
+
+
+#hello-heading {
+    font-size: 25px;
+}
