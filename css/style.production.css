@@ -99,8 +99,6 @@ td {
     text-align: center;
 }
 
-/*Question: To do later: In the table of the "About" page, when I shrink the page to about 478px, there is no longer any spacing between the table and the sides of the webpage/viewport. How to add spacing between the table and the webpage's limits (I've tried to add padding and margins to the table's class already)*/
-
 caption {
     font-size: 21px;
     font-weight: bold;
@@ -263,11 +261,6 @@ a.resume-button {
             margin-bottom: 40px;
         }
     }
-
-/*Question: To do later: In the "Home" page, below 600px width, how to move text content below profile image (display:block wasn't working)*/
-/*Question: To do later: In the "Home" page Below 430px width, how to center profile image?*/
-
-/*Question: To do later: In the "About" page, in the header/nav. part, at 380px width, the border-bottom starts to shrink, and that affects the whole layout of that page!*/
 
 .page-header {
     display: -webkit-box;
