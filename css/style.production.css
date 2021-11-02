@@ -8,13 +8,14 @@
 /*
 Explanation:
 To do:  
-Preprocessor, Variables and Postprocessor process (exercise 1.8):
+Preprocessor, Variables and Postprocessor process (exercise 1.8) + Uploading:
 1. In the "styles.css" file, replace any repetitive values (e.g. color, font-weight, font-size, etc.) as Variables (in ":root" section) - these native css variables replace the job of Preprocessors like SASS!
 2. (After finishing website) Copy the content of the "styles.css" CSS file and paste it into the PostCSS playground (https://madlittlemods.github.io/postcss-css-variables/playground/) for converting the Variables to 'normal css'
 3. Copy the output of the PostCSS playground and paste it into the 'autoprefixer' (a Postprocessor): https://autoprefixer.github.io/
 4. In this "style.production.css" file, paste the output of the autoprefixer (replace the existing output here).
 5. (If you need to make more changes) Any future changes to your CSS should be made through your original “styles.css” files, then this process should be repeated again.
 6. (If you haven't done so) Update the links to your CSS file in all your HTML files (they should now point to your “style.production.css” file)
+7. Upload the latest file versions to "Hostinger" (hosting provider), overwriting the older file versions
 */
 
 /*
