@@ -41,7 +41,7 @@ How CSS is read:
         4. Element selectors (lowest) - e.g. "button"
         3. Class selectors (mid) - e.g. ".button"
         2. ID selectors (highest) - e.g. "#button"
-        1. Write: "!important" (though avoid this as it interferes with cascading behaviour)
+        1. Write: "!important" (though avoid this as it interferes with cascading behavior)
 */
 
 /*
